@@ -57,6 +57,9 @@ public class SignUp extends HttpServlet {
 				+ "- Browse through past year questions (PYQs) for various universities\r\n"
 				+ "- Access textbooks and study materials\r\n"
 				+ "- Enroll in online courses to enhance your knowledge\r\n";
+		
+		 String EncPassword = PasswordEncryption.generatedENC_Password(Password); //Password is encrypted 
+		
 		try {
 			Connection con = DataCon.getCon();
 			PreparedStatement ps1 = con.prepareStatement("select * from users where email=?");
@@ -68,7 +71,7 @@ public class SignUp extends HttpServlet {
 			ps.setString(2, RoleId);
 			ps.setString(3, Institute);
 			ps.setString(4, email);
-			ps.setString(5, Password);
+			ps.setString(5, EncPassword);
 			ps.executeUpdate();
 			response.sendRedirect("login.jsp");
 			Mail.mail(email,Subject,Msg);
