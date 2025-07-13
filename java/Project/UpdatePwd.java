@@ -48,10 +48,12 @@ public class UpdatePwd extends HttpServlet {
 		String name = (String)session.getAttribute("name");
 		Connection con = DataCon.getCon();
 		String subject = "Password is Updated";
-       String body = name+".Your Password is updated.Thanks";
+                String body = name+".Your Password is updated.Thanks";
+		String EncPassword = PasswordEncryption.generatedENC_Password(Password);
+
         try {
 	           PreparedStatement ps = con.prepareStatement("update users set Password=? where email=?");
-	           ps.setString(1, Password);
+	           ps.setString(1, EncPassword);
 	           ps.setString(2,email);
 	            ps.executeUpdate();
 	        response.sendRedirect("login.jsp");
