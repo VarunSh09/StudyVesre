@@ -44,10 +44,13 @@ public class UpdateAdminPwd extends HttpServlet {
 		String email = request.getParameter("Email");
 		Connection con = DataCon.getCon();
 		String subject = "Password is Updated";
-       String body = "Password is updated.Thanks";
+                String body = "Password is updated.Thanks";
+       
+		String EncPassword = PasswordEncryption.generatedENC_Password(Password);
+
         try {
 	           PreparedStatement ps = con.prepareStatement("update users set Password=? where email=?");
-	           ps.setString(1, Password);
+	           ps.setString(1,EncPassword);
 	           ps.setString(2,email);
 	            ps.executeUpdate();
 	        response.sendRedirect("AdminChangePwd.jsp");
