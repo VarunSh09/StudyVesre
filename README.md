@@ -1,1 +1,1 @@
-# StudyVesre
+# StudyVerse
