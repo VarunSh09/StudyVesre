@@ -46,11 +46,13 @@ public class Login extends HttpServlet {
 		String Password = request.getParameter("Upassword");
         Connection con = DataCon.getCon();
 	    HttpSession session = request.getSession( );
+         
+		String EncPassword = PasswordEncryption.generatedENC_Password(Password);
 
         try {
 			PreparedStatement ps = con.prepareStatement("select * from  Users where email=? && Password=?");
 			ps.setString(1, email);
-			ps.setString(2,Password);
+			ps.setString(2,EncPassword);
 			
 			ResultSet rs = ps.executeQuery();
 		    if(rs.next()){
